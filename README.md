@@ -11,9 +11,15 @@ Data Structures Examples is a curated set of concise, runnable Python implementa
 ## Repository Layout
 - `src/ds_examples/`: Python package with implementations and a CLI demo
 - `tests/`: Pytest-based tests for core structures
-- `ds_1.md` .. `ds_6.md`: Existing notes/reference materials
+- `scripts/`: Utility scripts including `verify.ps1` (setup/test) and `benchmark.py` (performance testing)
 - `.github/workflows/`: CI and Release automation
-- `scripts/verify.ps1`: PowerShell script to install and test
+- Reference materials:
+  - `java_fundamentals_and_basic_programming.md`: Java basics, JOptionPane, hardware, errors
+  - `java_methods_and_classes.md`: Method design, class implementation, Sphere example
+  - `object_oriented_programming.md`: Inheritance, encapsulation, Student class
+  - `oop_concepts_and_advanced_topics.md`: Polymorphism, abstract classes, access modifiers
+  - `advanced_java_programming_techniques.md`: Arrays, recursion, file I/O, exceptions
+  - `data_structures_exercises_and_analysis.md`: Complexity analysis, postfix evaluation, tree structures
 
 ## Quick Start (Windows PowerShell)
 ```powershell
@@ -112,6 +118,6 @@ Authored 20 November, 2025 by Maxwell Hauser
 ## License
 This project is licensed under the MIT License. See `LICENSE`.
 
-## Notes
-- This repo is intentionally scoped to the `ds_examples` folder; the root workspace is not pushed to GitHub.
-- After pushing to GitHub, the local folder name will be renamed to `ds_examples_gh` per project requirements. The GitHub repo will not include `_gh`.
+## Project Structure Notes
+- This repository contains only the data structures examples project; the parent workspace is not included.
+- The local folder is named `py_ds_examples_gh` to distinguish it from the workspace root, while the GitHub repository is named `ds-examples`.
