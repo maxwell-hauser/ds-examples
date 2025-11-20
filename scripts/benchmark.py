@@ -12,8 +12,8 @@ from pathlib import Path
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from ds_examples import Stack, Queue, LinkedList, BinaryTree
-
+# Import data structures. Path is dynamically added above.
+from ds_examples import Stack, Queue, LinkedList, BinaryTree # type: ignore
 
 def benchmark_stack(size: int) -> dict:
     """Benchmark Stack operations."""
