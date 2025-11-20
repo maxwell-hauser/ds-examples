@@ -1,160 +1,198 @@
-Name: Maxwell Hauser
-CSC 229 				   Test #2 			          	100 Points
-Complete the exam, save the file as a Microsoft Word file labeled as “your last name-your first name ”, submit through BB and via email with a subject line that reads as “CSC 229-70 – Test 2 – your last name-your first name” 
-on or before 3:10 PM
-Late submissions are subject to 20% penalty per 5 minutes
-(20)	1. Develop a method sum that given an integer n, return the value of the following series. 
-    	S = 1 + 12+14+… + 12n
+# Java Methods and Classes
 
-public static double sum(int n)
-	{
-		double number = 1;
-		if (n == 0)
-		{
-			return 0;
-		}
-		
-		else if (n == 1)
-		{
-			return 1;
-		}
-		
-		else
-		{
-			for (int i = 1; i < n; i++)
-			{
-				number += (1/(double)(Math.pow(2, i)));
-			}
-		}
-		
-		return number;
-	}
+## Exercise 1: Series Summation
 
+Develop a method `sum` that, given an integer `n`, returns the value of the following series:
 
-(20)	2. Develop a method called count that given two integers k1 and k2 returns the number of integers between k1 and k2 that are divisible by either 7 or 11 but not both, return the count.
+$$S = 1 + \frac{1}{2} + \frac{1}{4} + \ldots + \frac{1}{2^n}$$
 
-	public static int count(int k1, int k2)
-	{
-		int counter = 0;
-		for (int i = k1+1; i < k2; i++)
-		{
-			if (i % 7 == 0 && i % 11 == 0) {continue;}
-		
-			else if (i % 7 == 0 || i % 11 == 0) {counter++; continue;}
-		}
-		
-		return counter;	
-	}
-
-
-(20) 	3. Develop a method called maxArray that given a two-dimensional array t of integers, returns the maximum of the elements stored in the array.
-
-public static int maxArray(int[][] t)
-	{
-		int maxValue = Integer.MIN_VALUE;
-		for (int row = 0; row < t.length; row++)
-		{
-			for (int col = 0; col < t[row].length; col++)
-			{
-				if (t[row][col] > maxValue)
-				{
-					maxValue = t[row][col];
-				}
-			}
-		}
-		return maxValue;
-	}
-
-(20)	4. Develop a method summerPay that given the rank of a teaching faculty (a String) and number of credit hours she/he taught during summer (an integer) returns the total summer earnings for that faculty. Use the following table:
-
-      Wages for 1 credit of teaching for full-time faculty members
-Rank
-Year 2020
-Professor
-$ 2,146
-Associate Professor
-$ 1,977
-Assistant Professor
-$ 1,825
-Instructor
-$ 1,672
-
-public static int summerPay(String s, int i)
-	{
-		int pay = 0;
-		switch (s)
-		{
-		case "Professor":
-			pay = 2146*i;
-			
-		case "Associate Professor":
-			pay = 1977*i;
-		
-		case "Assistant Professor":
-			pay = 1825*i;
-
-		case "Instructor":
-			pay = 1672*i;
-			
-		default:
-			pay = -1;
-		}		
-		return pay;
-	}
-
-(20)	5. Design a class named Sphere to represent a Geometric shape Sphere represented by the coordinates of the center of sphere ( xc, yc ) and its radius ( r )	
-
-
-sphere surface  = ( 4 π r2 )    
-sphere  volume = ( 4/3 π r3  )
-
-(5)	Draw the UML diagram for the class 
-I had no idea how to use those boxes so I’m just going to type it.
-
-Class header first
-then data members
-then constructors
-then accessors
-then other methods
-
- (5)	Develop Java code to define data members and constructors
-public class Sphere {
-	// data members
-	private int xc, yc, r;
-	// constructors
-	public Sphere()
-	// no-argument constructor
-	{
-		xc = 0;
-		yc = 0;
-		r = 10;
-	}
-	
-	public Sphere(int xc1, int yc1, int r1)
-	//yes-argument constructor
-	{
-		xc = xc1;
-		yc = yc1;
-		r = r1;
-	}
-	
-	// accessors
-	public int getR() {return r;}
-	public int getX() {return xc;}
-	public int getY() {return yc;}
-	
-	// other methods
-	public double getSurface()
-	{
-		return 4 * Math.PI * r * r;
-	}
-	
-	public double getVolume()
-	{
-		return (4 /(double)3) * Math.PI * r * r * r;
-	}
+```java
+public static double sum(int n) {
+    double number = 1.0;
+    
+    if (n == 0) {
+        return 0;
+    }
+    
+    if (n == 1) {
+        return 1;
+    }
+    
+    for (int i = 1; i < n; i++) {
+        number += (1.0 / Math.pow(2, i));
+    }
+    
+    return number;
 }
+```
 
-(10)	Develop Java code to define accessors and other methods
+## Exercise 2: Counting Divisible Numbers
 
-See above :)
+Develop a method called `count` that, given two integers `k1` and `k2`, returns the number of integers between `k1` and `k2` that are divisible by either 7 or 11 but not both.
+
+```java
+public static int count(int k1, int k2) {
+    int counter = 0;
+    
+    for (int i = k1 + 1; i < k2; i++) {
+        // Skip numbers divisible by both 7 and 11
+        if (i % 7 == 0 && i % 11 == 0) {
+            continue;
+        }
+        
+        // Count numbers divisible by 7 or 11 (but not both)
+        if (i % 7 == 0 || i % 11 == 0) {
+            counter++;
+        }
+    }
+    
+    return counter;
+}
+```
+
+## Exercise 3: Maximum Value in 2D Array
+
+Develop a method called `maxArray` that, given a two-dimensional array `t` of integers, returns the maximum of the elements stored in the array.
+
+```java
+public static int maxArray(int[][] t) {
+    int maxValue = Integer.MIN_VALUE;
+    
+    for (int row = 0; row < t.length; row++) {
+        for (int col = 0; col < t[row].length; col++) {
+            if (t[row][col] > maxValue) {
+                maxValue = t[row][col];
+            }
+        }
+    }
+    
+    return maxValue;
+}
+```
+
+## Exercise 4: Faculty Summer Pay Calculator
+
+Develop a method `summerPay` that, given the rank of a teaching faculty (a String) and the number of credit hours taught during summer (an integer), returns the total summer earnings for that faculty.
+
+### Wages for 1 Credit Hour (Year 2020)
+
+| Rank                | Rate per Credit Hour |
+|---------------------|----------------------|
+| Professor           | $2,146               |
+| Associate Professor | $1,977               |
+| Assistant Professor | $1,825               |
+| Instructor          | $1,672               |
+
+```java
+public static int summerPay(String rank, int creditHours) {
+    int pay = 0;
+    
+    switch (rank) {
+        case "Professor":
+            pay = 2146 * creditHours;
+            break;
+        case "Associate Professor":
+            pay = 1977 * creditHours;
+            break;
+        case "Assistant Professor":
+            pay = 1825 * creditHours;
+            break;
+        case "Instructor":
+            pay = 1672 * creditHours;
+            break;
+        default:
+            pay = -1;  // Invalid rank
+    }
+    
+    return pay;
+}
+```
+
+## Exercise 5: Sphere Class Design
+
+Design a class named `Sphere` to represent a geometric sphere defined by the coordinates of its center `(xc, yc)` and its radius `r`.
+
+**Formulas:**
+- Surface Area = $4\pi r^2$
+- Volume = $\frac{4}{3}\pi r^3$
+
+### UML Diagram
+
+```
++-----------------+
+|     Sphere      |
++-----------------+
+| - xc: int       |
+| - yc: int       |
+| - r: int        |
++-----------------+
+| + Sphere()      |
+| + Sphere(int xc, int yc, int r) |
+| + getX(): int   |
+| + getY(): int   |
+| + getR(): int   |
+| + getSurface(): double |
+| + getVolume(): double  |
++-----------------+
+```
+
+### Java Implementation
+
+```java
+public class Sphere {
+    // Data members
+    private int xc, yc, r;
+    
+    // No-argument constructor
+    public Sphere() {
+        xc = 0;
+        yc = 0;
+        r = 10;
+    }
+    
+    // Argument constructor
+    public Sphere(int xc1, int yc1, int r1) {
+        xc = xc1;
+        yc = yc1;
+        r = r1;
+    }
+    
+    // Accessors
+    public int getR() {
+        return r;
+    }
+    
+    public int getX() {
+        return xc;
+    }
+    
+    public int getY() {
+        return yc;
+    }
+    
+    // Other methods
+    public double getSurface() {
+        return 4 * Math.PI * r * r;
+    }
+    
+    public double getVolume() {
+        return (4.0 / 3.0) * Math.PI * r * r * r;
+    }
+}
+```
+
+## Key Concepts
+
+### Method Design Principles
+
+1. **Clear Purpose**: Each method should have a single, well-defined purpose
+2. **Appropriate Return Types**: Choose return types that accurately represent the result
+3. **Meaningful Parameters**: Use descriptive parameter names and appropriate data types
+4. **Error Handling**: Consider edge cases and invalid inputs
+
+### Class Design Best Practices
+
+1. **Encapsulation**: Use private data members with public accessors
+2. **Constructors**: Provide both no-argument and parameterized constructors
+3. **Documentation**: Include clear comments explaining purpose and formulas
+4. **Validation**: Consider validating input parameters in constructors and methods

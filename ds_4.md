@@ -1,148 +1,208 @@
-### Data Structures 4
----			   
+# Java OOP Concepts and Advanced Topics
 
-What is a Java Class?
+## Core OOP Concepts
 
-A Java class is a blueprint from which individual objects are created. A class can contain fields (data members) and methods to define the behavior of the objects created from the class.
+### What is a Java Class?
 
-What is a Java Object?
+A Java class is a blueprint from which individual objects are created. A class can contain:
+- **Fields** (data members): Variables that hold the state
+- **Methods**: Functions that define behavior
+- **Constructors**: Special methods for object initialization
 
-An object is an instance of a class. It contains state (attributes or data members) and behavior (methods or functions) defined by its class. Objects are created using constructors.
+### What is a Java Object?
 
-What is Java inheritance?
+An object is an instance of a class. It contains:
+- **State**: Attributes or data members with specific values
+- **Behavior**: Methods or functions that operate on the object's data
 
-Inheritance is a mechanism in Java where one class (the subclass or child class) can inherit fields and methods from another class (the superclass or parent class). This promotes code reusability and establishes a hierarchical relationship between classes.
+Objects are created using constructors and the `new` keyword.
 
-What is Polymorphism (in the context of Java programming language)?
+### What is Java Inheritance?
 
-Polymorphism is the ability of a single function or method to operate in different ways based on the object that it is acting upon. In Java, polymorphism is primarily achieved through method overriding (runtime polymorphism) and method overloading (compile-time polymorphism). This allows methods to behave differently based on the object type or the parameters passed to them.
+Inheritance is a mechanism where one class (subclass/child) inherits fields and methods from another class (superclass/parent). Benefits include:
+- Code reusability
+- Hierarchical class relationships
+- Polymorphic behavior
 
----
+### What is Polymorphism?
 
-Below is a method that, given a one-dimensional array of integers with values between zero and nine, $A$, returns the number of occurrences of each digit in the array.
+Polymorphism allows a single function or method to operate in different ways based on the object or parameters. Types include:
+- **Runtime Polymorphism**: Method overriding
+- **Compile-time Polymorphism**: Method overloading
 
-The method creates an array of 10 elements, $B$, each holding the number of occurrences of a digit. B[0] holds the number of zeros in A.
+## Exercise 1: Counting Digit Occurrences
+
+Given a 1D array of integers with values between 0-9, return the number of occurrences of each digit.
 
 ```java
 public static int[] numberOccurrences(int[] a) {
     int[] b = new int[10];
-    for (int l = 0; l < a.length; l++) {
-        switch (a[l]) {
-            case 0:
-                b[0] += 1;
-                break;	
-            case 1:
-                b[1] += 1;
-                break;
-            case 2:
-                b[2] += 1;
-                break;
-            case 3:
-                b[3] += 1;
-                break;
-            case 4:
-                b[4] += 1;
-                break;
-            case 5:
-                b[5] += 1;
-                break;
-            case 6:
-                b[6] += 1;
-                break;
-            case 7:
-                b[7] += 1;
-                break;
-            case 8:
-                b[8] += 1;
-                break;
-            case 9:
-                b[9] += 1;
-                break;
+    
+    for (int i = 0; i < a.length; i++) {
+        if (a[i] >= 0 && a[i] <= 9) {
+            b[a[i]]++;
         }
     }
+    
     return b;
 }
 ```
----
 
-Below is a method called set2DArray that, given an integer number, $N$, creates and returns a 2D array with $N$ rows and $N$ columns initialized as follows:
+**Improved version using simplified logic:**
 
-A[i][j] = 1 if i and j are both even
+```java
+public static int[] numberOccurrences(int[] a) {
+    int[] count = new int[10];
+    
+    for (int value : a) {
+        if (value >= 0 && value <= 9) {
+            count[value]++;
+        }
+    }
+    
+    return count;
+}
+```
 
-A[i][j] = -1 if i and j are both odd
+## Exercise 2: Initialize 2D Array with Pattern
 
-A[i][j] = 0 otherwise
+Create and return a 2D array with N rows and N columns initialized as:
+- `A[i][j] = 1` if both i and j are even
+- `A[i][j] = -1` if both i and j are odd
+- `A[i][j] = 0` otherwise
 
 ```java
 public static int[][] set2DArray(int n) {
     int[][] a = new int[n][n];
-    for (int row = 0; row < a.length; row++) {
-        for (int col = 0; col < a[row].length; col++) {
-            if (row % 2 == 0 && col % 2 == 0)
+    
+    for (int row = 0; row < n; row++) {
+        for (int col = 0; col < n; col++) {
+            if (row % 2 == 0 && col % 2 == 0) {
                 a[row][col] = 1;
-            
-            else if (row % 2 != 0 && col % 2 != 0)
+            } else if (row % 2 != 0 && col % 2 != 0) {
                 a[row][col] = -1;
-            
-            else
+            } else {
                 a[row][col] = 0;
+            }
         }
     }
+    
     return a;
 }
 ```
----
 
-Below is a paint method that draws a shape based on the current width and height of the visible screen. Title bar is 40 pixels in height, leave 20 pixels between outer rectangle and frame borders. 
+## Exercise 3: Graphics - Nested Rectangles
+
+Draw a shape based on current window dimensions, leaving 20 pixels margin and accounting for 40-pixel title bar.
 
 ```java
 public void paint(Graphics g) {
-    int ww = (int) this.getWidth();
-    int wh = (int) this.getHeight();
-
-    g.drawRect (20, 60, ww-40, wh-80);
-    g.drawLine(20, 30 + (wh-50), ww-700, 30 + (wh-810));
-    g.drawLine(ww-700, 30 + (wh-810), 500, 30 + (wh-50));
-    g.drawLine(500, 30 + (wh-50), (ww-680) * 2, 30 + (wh-810));
-    g.drawLine((ww-680) * 2, 30 + (wh-810), 980, 30 + (wh-50));
+    int ww = getWidth();
+    int wh = getHeight();
+    
+    // Draw outer rectangle
+    g.drawRect(20, 60, ww - 40, wh - 80);
+    
+    // Draw diagonal lines
+    int x1 = 20;
+    int y1 = 60 + (wh - 80);
+    int x2 = ww - 20;
+    int y2 = 60;
+    
+    g.drawLine(x1, y1, x2, y2);
 }
 ```
----
 
-What is method overloading?
+## Advanced OOP Concepts
 
-When two methods share the same name but have different implementations based on different parameter lists (different type, number, or both of parameters).
+### Method Overloading
 
-What is method overriding?
-
-When you write your own method to replace one already defined in the java library or in a superclass. The method in the subclass has the same name, return type, and parameters as the one in the superclass.
-
-What is an abstract method?
-
-An abstract method is a method that is declared without an implementation (without a body) in an abstract class. It serves as a placeholder for methods that must be implemented by subclasses.
-
-Why would you use an abstract method?
-
-To force the subclasses to provide an implementation for the method.
-
-What is an abstract class?
-
-An abstract class is a class that cannot be instantiated on its own and may contain abstract methods that must be implemented by subclasses.
-
-Why would you use an abstract class?
-
-To provide a common base class with shared code and to enforce a contract for subclasses through abstract methods.
-
----
-
-Below are class definitions $A$ and $B$ within the same package $S$, and class definitions $C$ and $D$ within another package $T$.
+Two or more methods share the same name but have different parameter lists (different type, number, or both).
 
 ```java
-Package S
+public int add(int a, int b) {
+    return a + b;
+}
+
+public double add(double a, double b) {
+    return a + b;
+}
+
+public int add(int a, int b, int c) {
+    return a + b + c;
+}
+```
+
+### Method Overriding
+
+A subclass provides a specific implementation of a method already defined in its superclass. The method must have:
+- Same name
+- Same return type
+- Same parameters
+
+```java
+class Animal {
+    public void makeSound() {
+        System.out.println("Some sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Bark");
+    }
+}
+```
+
+### Abstract Methods
+
+An abstract method is declared without an implementation (no method body) in an abstract class.
+
+```java
+public abstract class Shape {
+    public abstract double getArea();
+    public abstract double getPerimeter();
+}
+```
+
+**Why use abstract methods?**
+- Force subclasses to provide specific implementations
+- Define a contract that subclasses must follow
+- Enable polymorphic behavior
+
+### Abstract Classes
+
+An abstract class cannot be instantiated and may contain abstract methods that must be implemented by subclasses.
+
+```java
+public abstract class Vehicle {
+    protected String make;
+    protected String model;
+    
+    public abstract void startEngine();
+    
+    public void displayInfo() {
+        System.out.println(make + " " + model);
+    }
+}
+```
+
+**Why use abstract classes?**
+- Provide a common base with shared code
+- Enforce implementation contracts through abstract methods
+- Share state and behavior among related classes
+
+## Package Access Modifiers
+
+### Example: Cross-Package Inheritance
+
+```java
+// Package S
 public class A {
     private int[] x;
     protected int y;
-    String c;
+    String c;  // Default (package-private)
 }
 
 public class B extends A {
@@ -151,8 +211,9 @@ public class B extends A {
     protected float[] g;
 }
 ```
+
 ```java
-Package T
+// Package T
 public class C extends A {
     private int p;
     public String t;
@@ -163,129 +224,47 @@ public class D extends B {
     boolean r;
 }
 ```
-What is the structure and content of object term created as follows using java default constructor:
+
+### Object Structure: Class B
 
 ```java
-B term = new B ();
+B term = new B();
 ```
-| Var Name | Type | Bytes | Content |
-|----------|------|-------|---------|
-| d        | int  | 4     | 0       |
-| f        | boolean | 1  | false   |
-| g        | float[] | 4x length of array | null |
-| x        | int[] | 4x length of array | null |
-| y        | int  | 4     | 0       |
-| c        | String | 4x length of array | null |
 
-What are the acceptable and unacceptable references made across all classes?
+| Variable | Type    | Bytes              | Content |
+|----------|---------|--------------------| --------|
+| d        | int     | 4                  | 0       |
+| f        | boolean | 1                  | false   |
+| g        | float[] | 4 (reference)      | null    |
+| x        | int[]   | 4 (reference)      | null    |
+| y        | int     | 4                  | 0       |
+| c        | String  | 4 (reference)      | null    |
 
-Acceptable references: 
-- Class B can access protected member y and default member c from class A.
-- Class D can access protected member y from class A and protected member g from class B.
+### Access Rules
 
-Unacceptable references:
-- Class C cannot access private member x from class A.
-- Class D cannot access private member d from class B.
----
+**Acceptable references:**
+- Class B can access protected `y` and default `c` from class A (same package)
+- Class D can access protected `y` from class A (through inheritance)
+- Class D can access protected `g` from class B (through inheritance)
 
-Below is the design and implementation of class $Point$. It represents a point on 2D Cartesian coordinate planes. $Point$ has two integer numbers as data members, no-arg and argument constructors, accessor methods, a method to calculate and return the distance of the point from the origin, and a method to determine and return the quadrant the point is located at as an integer (1 for quadrant I, 2 for quadrant II, etc.).
+**Unacceptable references:**
+- Class C cannot access private `x` from class A
+- Class C cannot access default member `c` from class A (different package)
+- Class D cannot access private `d` from class B
 
-```java
-public class Point
-{
-	private static int x, y, q;
-	
-	public Point()
-	{
-		x = 10;
-		y = 10;
-	}
-	
-	public Point(int x1, int y1)
-	{
-		x = x1;
-		y = y1;
-	}
+## Key Principles
 
-	public int getX() {return x;}
-	public void setX(int x1) {x = x1;}
-	public int getY() {return y;}
-	public void setY(int y1) {y = y1;}
-			
-	
-	public double getDistance(int x1, int y1)
-	{
-		return Math.sqrt(Math.pow(x1 - 0, 2)
-				 	   + Math.pow(y1 - 0, 2));
-	}
-	
-	public int getQuadrant(int x1, int y1)
-	{
-		if (x1 > 0 && y1 > 0)
-			q = 1;
-		else if (x1 < 0 && y1 > 0)
-			q = 2;
-		else if (x1 < 0 && y1 < 0)
-			q = 3;
-		else (x1 > 0 && y1 < 0)
-			q = 4;
-		return q;
-	}
-}
-```
----
-Java supports text and binary files.
+### Encapsulation
+- Private data members
+- Public accessors/mutators
+- Protected access for inheritance
 
-What is a file? A file is a way to store collections of data/information/numbers on a computer. They can be both read and written.
+### Inheritance Hierarchy
+- `extends` keyword for class inheritance
+- `super` to access parent class members
+- Constructor chaining with `super()`
 
-A text file is made of ASCII characters, and can be opened and edited with text editors. A binary file is made of bytes, and is not human-readable.
-
-Given a text file with one million integers between 4,000,000,000 and 9,000,000,000, how many bytes of the disk will the file occupy?
-
-Each integer in that range requires 8 bytes (since they exceed the range of a 4-byte integer). Therefore, for one million integers:
-1,000,000 integers * 8 bytes/integer = 8,000,000 bytes.
-
----
-
-Below is the design and implementation for a class hierarchy for two-dimensional shapes. All shapes have a color and name. Subclasses define their own specific data members. All subclasses implement the following methods:
-
-getAttributes: obtains attributes of a shape by interacting with the user.
-
-getPerimeter: calculates and returns the perimeter of the particular shape.
-
-getArea: calculates and returns the area of the particular shape.
-
-UMLs for TwoDShape class (Super Class) and subclasses Ellipse and Parallelogram:
-
-```
-TwoDShape
--color: String
--name: String
-+TwoDShape(color: String, name: String)
-+TwoDShape() 
-+getColor(): String
-+setColor(color: String): void
-+getName(): String
-+setName(name: String): void
-+getAttributes(): void
-+getPerimeter(): double
-+getArea(): double
-```
-```
-Parallelogram extends TwoDShape
-+Parallelogram()
-+Parallelogram(width: double, height: double)
-+Parallelogram(width: double, height: double, color: String, name: String)
-+getWidth(): double
-+getHeight(): double
-+getPerimeter(): double
-+getArea(): double
-```
-```
-Ellipse extends TwoDShape
-+Ellipse()
-+Ellipse(radius: double)
-+getPerimeter(): double
-+getArea(): double
-+getRadius(): double
-```
+### Polymorphism
+- Method overriding for runtime polymorphism
+- Abstract classes and interfaces for contracts
+- Type substitution (subclass objects as superclass references)

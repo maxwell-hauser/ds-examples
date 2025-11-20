@@ -55,8 +55,59 @@ pytest -q
 - CI runs on pushes/PRs to validate code and tests across Python versions
 - Tagging a version like `v0.1.0` triggers the Release workflow, generating GitHub release notes
 
+## Complexity Reference
+
+### Stack
+
+| Operation | Time Complexity | Space Complexity |
+|-----------|-----------------|------------------|
+| push      | O(1)            | O(1)             |
+| pop       | O(1)            | O(1)             |
+| peek      | O(1)            | O(1)             |
+| is_empty  | O(1)            | O(1)             |
+| size      | O(1)            | O(1)             |
+
+### Queue
+
+| Operation | Time Complexity | Space Complexity |
+|-----------|-----------------|------------------|
+| enqueue   | O(1)            | O(1)             |
+| dequeue   | O(1)            | O(1)             |
+| peek      | O(1)            | O(1)             |
+| is_empty  | O(1)            | O(1)             |
+| size      | O(1)            | O(1)             |
+
+### LinkedList
+
+| Operation | Time Complexity | Space Complexity |
+|-----------|-----------------|------------------|
+| append    | O(n)            | O(1)             |
+| find      | O(n)            | O(1)             |
+| remove    | O(n)            | O(1)             |
+| to_list   | O(n)            | O(n)             |
+
+### BinaryTree (BST)
+
+| Operation    | Average Case | Worst Case | Space Complexity |
+|--------------|--------------|------------|------------------|
+| insert       | O(log n)     | O(n)       | O(1)             |
+| find         | O(log n)     | O(n)       | O(1)             |
+| inorder      | O(n)         | O(n)       | O(n)             |
+| preorder     | O(n)         | O(n)       | O(n)             |
+| postorder    | O(n)         | O(n)       | O(n)             |
+
+## Performance Benchmarking
+
+Run the included benchmarking script to measure performance on your system:
+
+```powershell
+python scripts/benchmark.py
+```
+
+This will test operations across multiple input sizes and display timing results.
+
 ## Authorship
-- Maintainers: Project Maintainers (update with your GitHub handle if desired)
+Authored 20 November, 2025 by Maxwell Hauser
 
 ## License
 This project is licensed under the MIT License. See `LICENSE`.
